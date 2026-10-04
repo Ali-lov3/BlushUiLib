@@ -1,4 +1,4 @@
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourName/YourRepo/main/Source.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Ali-lov3/BlushUiLib/refs/heads/main/Source.lua"))()
 
 local Players = game:GetService("Players")
 
