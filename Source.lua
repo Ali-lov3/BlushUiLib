@@ -1343,11 +1343,12 @@ end
 
 local function NewColumn(Page, X, Width)
 	local Column = Make("Frame", {
-		Position = UDim2.fromOffset(X, 62),
+		Position = UDim2.fromOffset(X, 0),
 		Size = UDim2.fromOffset(Width, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundTransparency = 1,
 	}, Page)
+	Make("UIPadding", { PaddingBottom = UDim.new(0, 14) }, Column)
 	Make("UIListLayout", { Padding = UDim.new(0, 12), SortOrder = Enum.SortOrder.LayoutOrder }, Column)
 	return Column
 end
@@ -1538,7 +1539,23 @@ function SectionClass:CreateTab(Name, IconName)
 	local Key = self.Name .. "/" .. Name
 	self.Tabs += 1
 	NavItem(self.Body, self.Tabs, Key, IconName or "sparkles", Name)
-	local Page = Make("Frame", { Size = UDim2.fromScale(1, 1), BackgroundTransparency = 1, Visible = false }, State.Content)
+	local Page = Make("ScrollingFrame", {
+		Position = UDim2.fromOffset(0, 62),
+		Size = UDim2.new(1, 0, 1, -62),
+		BackgroundTransparency = 1,
+		Visible = false,
+		ClipsDescendants = true,
+		CanvasSize = UDim2.new(),
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		ScrollBarThickness = 3,
+		ScrollBarImageColor3 = Theme.Muted,
+		ScrollBarImageTransparency = 0.2,
+		BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		ElasticBehavior = Enum.ElasticBehavior.Never,
+	}, State.Content)
 	State.Pages[Key] = Page
 	local Tab = setmetatable({
 		Key = Key,
